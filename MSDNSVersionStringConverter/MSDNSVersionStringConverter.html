@@ -1,0 +1,30 @@
+<html>
+	<head><title>Windows DNS Server Version Converter</title></head>
+	<script>
+		function dnsVerConv(dnsVerHex) {
+			if(dnsVerHex.length != 8) {
+				alert("Wrong length, should be 8 characters!");
+			} else {
+				majVer = parseInt(dnsVerHex.substring(0,4), 16)
+				minVer = parseInt(dnsVerHex.substring(4,8), 16)
+				return (majVer + "." + minVer)
+			}
+		}
+	</script>
+	<body>
+		<h1>Windows DNS Server Version Converter</h1>
+		<h2>How to use</h2>
+		<p>This tool converts the hex version number of a Microsoft DNS server to something useful.  IF searched for in nmap, it will look like this:</p>
+		<pre>
+			sudo nmap -sSU -p 53 --script dns-nsid 1.1.1.1
+			|_  bind.version: Microsoft DNS 6.1.7601 (1DB15F75)
+		</pre>
+		<p>This tool converts that last bit to a readable version number (like Nessus does).</p>
+		<form onsubmit="document.getElementById('verForm').fancyVer.value = dnsVerConv(document.getElementById('verForm').ver.value)" action="#" id="verForm">
+			Version number: <input type="text" value="" length="8" id="ver">
+			<br />Converted fancy version number: <input type="text" value="" readonly="readonly" id="fancyVer">
+			<br /><br /><input type="submit" value="Make it fancy">
+		</form>
+		<p>Daniel J. Singer 2020</p>
+	</body>
+</html>
